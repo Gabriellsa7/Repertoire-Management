@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "music")
 @Data
@@ -20,5 +22,7 @@ public class Music {
 
     @Column(name = "pdf_file")
     private String pdf_file;
-    
+
+    @OneToMany(mappedBy = "music", cascade = CascadeType.ALL)
+    private Set<RepertoireMusic> repertoireLinks;
 }

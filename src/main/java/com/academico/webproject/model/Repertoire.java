@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "repertoire")
 @Data
@@ -14,5 +16,12 @@ public class Repertoire {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+
+    @ManyToOne
+    @JoinColumn(name = "band_id")
+    private Band band;
+
+    @OneToMany(mappedBy = "repertoire", cascade = CascadeType.ALL)
+    private Set<RepertoireMusic> musicLinks;
 
 }

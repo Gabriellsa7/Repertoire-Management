@@ -2,9 +2,9 @@ package com.academico.webproject.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -28,5 +28,8 @@ public class User {
 
     @Column(name = "is_leader")
     private Boolean is_leader;
+
+    @ManyToMany(mappedBy = "members")
+    private Set<Band> bands;
 }
 
