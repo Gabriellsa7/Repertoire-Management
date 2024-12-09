@@ -23,14 +23,14 @@ public class UserController {
         return userService.createUser(user);
     }
 
-    @GetMapping("{/id}")
+    @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable String id) {
         return userService.getUserById(id)
                 .map(user -> ResponseEntity.ok().body(user))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") String id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build(); // Returns 204 No Content to indicate successful deletion
