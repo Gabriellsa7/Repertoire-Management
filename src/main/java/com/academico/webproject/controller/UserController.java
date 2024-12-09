@@ -13,7 +13,7 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
-    // do the get all in user service
+    // do the get all here
 
     @Autowired
     private UserService userService;
