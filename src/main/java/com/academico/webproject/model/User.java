@@ -3,6 +3,7 @@ package com.academico.webproject.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.Data;
 
 import java.util.Set;
 
@@ -31,5 +32,6 @@ public class User {
 
     @ManyToMany(mappedBy = "members")
     private Set<Band> bands;
+
 }
 
