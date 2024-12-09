@@ -27,6 +27,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    //The leader will indicate the next song to be played based on the order.
     @Column(name = "is_leader")
     private Boolean is_leader;
 
