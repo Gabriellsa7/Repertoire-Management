@@ -22,7 +22,11 @@
         }
 
         public void deleteUser(String id) {
-            userRepository.deleteById(id);
+            if (userRepository.existsById(id)) {
+                userRepository.deleteById(id);
+            } else {
+                throw new RuntimeException("Band not found with ID: " + id);
+            }
         }
 
         public User updateUser(String id, User userDetails) {
