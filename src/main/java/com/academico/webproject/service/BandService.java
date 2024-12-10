@@ -33,23 +33,19 @@ public class BandService {
         return bandRepository.findAll();
     }
 
-    public Band updateBand(String bandId, Band updatedBand) {
-        Optional<Band> existingBand = bandRepository.findById(bandId);
-
-        if (existingBand.isPresent()) {
-            Band band = existingBand.get();
+    public Band updateBand(String id, Band updatedBand) {
+        return bandRepository.findById(id).map(band -> {
             band.setName(updatedBand.getName());
+            band.setLeader(updatedBand.getLeader());
             return bandRepository.save(band);
-        } else {
-            throw new RuntimeException("Band not found with ID: " + bandId);
-        }
+        }).orElseThrow(() -> new RuntimeException("Band not found"));
     }
 
-    public void deleteBand(String bandId) {
-        if (bandRepository.existsById(bandId)) {
-            bandRepository.deleteById(bandId);
+    public void deleteBand(String id) {
+        if (bandRepository.existsById(id)) {
+            bandRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Band not found with ID: " + bandId);
+            throw new RuntimeException("Band not found with ID: " + id);
         }
     }
 
@@ -81,3 +77,4 @@ public class BandService {
         return new ArrayList<>(band.getMembers());
     }
 }
+
