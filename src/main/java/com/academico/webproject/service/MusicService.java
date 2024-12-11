@@ -34,7 +34,7 @@ public class MusicService {
         }).orElseThrow(() -> new RuntimeException("Music not found"));
     }
 
-    public void deleteBand(String id) {
+    public void deleteMusic(String id) {
         if (musicRepository.existsById(id)) {
             musicRepository.deleteById(id);
         } else {
