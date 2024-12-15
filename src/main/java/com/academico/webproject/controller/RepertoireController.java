@@ -4,7 +4,6 @@ import com.academico.webproject.model.Repertoire;
 import com.academico.webproject.service.RepertoireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,9 @@ public class RepertoireController {
     private RepertoireService repertoireService;
 
     @PostMapping
-    public Repertoire createRepertoire(@RequestBody Repertoire repertoire) {
-        return repertoireService.createRepertoire(repertoire);
+    public ResponseEntity<Repertoire> createRepertoire(@RequestBody Repertoire repertoire) {
+        Repertoire createRepertoire = repertoireService.createRepertoire(repertoire);
+        return ResponseEntity.ok(createRepertoire);
     }
 
     @GetMapping("/{id}")
