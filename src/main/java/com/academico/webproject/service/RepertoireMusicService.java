@@ -8,7 +8,9 @@ import com.academico.webproject.repository.RepertoireRepository;
 import com.academico.webproject.repository.RepertoireMusicRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class RepertoireMusicService {
     //methods: addMusicToRepertoire, removeMusicFromRepertoire, updateMusicOrder, getMusicListByRepertoire,
     //findMusicInRepertoire, reorderMusic
