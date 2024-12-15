@@ -49,7 +49,7 @@ public class BandService {
         }
     }
 
-    public Band addMusicianToBand(String bandId, String userId) {
+    public Band addMemberToBand(String bandId, String userId) {
         Band band = bandRepository.findById(bandId)
                 .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
         User user = userRepository.findById(userId)
@@ -59,7 +59,7 @@ public class BandService {
         return bandRepository.save(band);
     }
 
-    public Band removeMusicianFromBand(String bandId, String userId) {
+    public Band removeMemberFromBand(String bandId, String userId) {
         Band band = bandRepository.findById(bandId)
                 .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
         User user = userRepository.findById(userId)
@@ -69,7 +69,7 @@ public class BandService {
         return bandRepository.save(band);
     }
 
-    public List<User> getMembersByBandId(String bandId) {
+    public List<User> getMemberByBandId(String bandId) {
         Band band = bandRepository.findById(bandId)
                 .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
 
