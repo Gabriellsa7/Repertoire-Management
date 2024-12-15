@@ -3,9 +3,11 @@ package com.academico.webproject.service;
 import com.academico.webproject.model.Repertoire;
 import com.academico.webproject.repository.RepertoireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class RepertoireService {
     //Methods: createRepertoire, updateRepertoire, deleteRepertoire
     //getRepertoireById, syncRepertoire
