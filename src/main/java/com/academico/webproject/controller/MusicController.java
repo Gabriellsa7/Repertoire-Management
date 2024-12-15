@@ -17,8 +17,9 @@ public class MusicController {
     private MusicService musicService;
 
     @PostMapping
-    public Music createMusic(@RequestBody Music music) {
-        return musicService.createMusic(music);
+    public ResponseEntity<Music> createMusic(@RequestBody Music music) {
+        Music createMusic = musicService.createMusic(music);
+        return ResponseEntity.ok(createMusic);
     }
 
     @GetMapping("/{id}")
