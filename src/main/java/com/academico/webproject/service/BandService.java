@@ -22,6 +22,12 @@ public class BandService {
     private UserRepository userRepository;
 
     public Band createBand(Band band) {
+        User leader = band.getLeader();
+        if (leader == null) {
+            throw new RuntimeException("Leader must be specified.");
+        }
+
+        band.getMembers().add(leader);
         return bandRepository.save(band);
     }
 
@@ -49,21 +55,23 @@ public class BandService {
         }
     }
 
-    public Band addMemberToBand(String bandId, String userId) {
+    public Band addMemberToBand(String bandId, String memberId) {
         Band band = bandRepository.findById(bandId)
                 .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        User user = userRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + memberId));
 
         band.getMembers().add(user);
         return bandRepository.save(band);
     }
 
-    public Band removeMemberFromBand(String bandId, String userId) {
+    public Band removeMemberFromBand(String bandId, String memberId) {
         Band band = bandRepository.findById(bandId)
                 .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        User user = userRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + memberId));
 
         band.getMembers().remove(user);
         return bandRepository.save(band);
