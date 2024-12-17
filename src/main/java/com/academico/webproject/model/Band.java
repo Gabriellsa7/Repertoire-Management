@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,13 +25,8 @@ public class Band {
     @JoinColumn(name = "leader_id")
     private User leader;
 
-    @ManyToMany
-    @JoinTable(
-            name = "band_member",
-            joinColumns = @JoinColumn(name = "band_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> members;
+    @OneToMany(mappedBy = "band", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BandMember> bandMembers;
 
     @OneToMany(mappedBy = "band", cascade = CascadeType.ALL)
     private Set<Repertoire> repertoires;

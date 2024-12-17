@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -31,8 +32,8 @@ public class User {
     @Column(name = "is_leader")
     private Boolean is_leader;
 
-    @ManyToMany(mappedBy = "members")
-    private Set<Band> bands;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BandMember> bandMembers;
 
 }
 
