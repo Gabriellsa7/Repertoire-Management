@@ -48,5 +48,33 @@ public class BandService {
             throw new RuntimeException("Band not found with ID: " + id);
         }
     }
+
+    public Band addMemberToBand(String bandId, String userId) {
+        Band band = bandRepository.findById(bandId)
+                .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        band.getMembers().add(user);
+        return bandRepository.save(band);
+    }
+
+    public Band removeMemberFromBand(String bandId, String userId) {
+        Band band = bandRepository.findById(bandId)
+                .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        band.getMembers().remove(user);
+        return bandRepository.save(band);
+    }
+
+    public List<User> getMemberByBandId(String bandId) {
+        Band band = bandRepository.findById(bandId)
+                .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
+
+        // Convert Set<User> to List<User>
+        return new ArrayList<>(band.getMembers());
+    }
 }
 

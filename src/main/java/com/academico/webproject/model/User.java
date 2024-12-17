@@ -32,8 +32,8 @@ public class User {
     @Column(name = "is_leader")
     private Boolean is_leader;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BandMember> bandMembers;
+    @ManyToMany(mappedBy = "members")
+    private Set<Band> bands;
 
 }
 

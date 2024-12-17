@@ -1,5 +1,6 @@
 package com.academico.webproject.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,8 +26,13 @@ public class Band {
     @JoinColumn(name = "leader_id")
     private User leader;
 
-    @OneToMany(mappedBy = "band", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BandMember> bandMembers;
+    @ManyToMany
+    @JoinTable(
+            name = "band_members",
+            joinColumns = @JoinColumn(name = "band_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> members;
 
     @OneToMany(mappedBy = "band", cascade = CascadeType.ALL)
     private Set<Repertoire> repertoires;
