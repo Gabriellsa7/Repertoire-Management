@@ -39,4 +39,15 @@
                 return userRepository.save(user);
             }).orElseThrow(() -> new RuntimeException("User not found"));
         }
+
+
+        public boolean authenticateUser(String email, String password) {
+            Optional<User> optionalUser = userRepository.findByEmail(email);
+
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                return user.getPassword().equals(password);
+            }
+            return false;
+        }
     }
