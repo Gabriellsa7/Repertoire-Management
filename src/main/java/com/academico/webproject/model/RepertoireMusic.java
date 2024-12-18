@@ -20,7 +20,7 @@ public class RepertoireMusic {
 
     //If a song is removed from the repertoire
     @Column(name = "is_active")
-    private boolean isActive;
+    private boolean isActive = true;
 
     @ManyToOne
     @JoinColumn(name = "repertoire_id")
