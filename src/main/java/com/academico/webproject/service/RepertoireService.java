@@ -1,10 +1,12 @@
 package com.academico.webproject.service;
 
+import com.academico.webproject.model.Band;
 import com.academico.webproject.model.Repertoire;
 import com.academico.webproject.repository.RepertoireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,6 +37,10 @@ public class RepertoireService {
 
     public Optional<Repertoire> getRepertoireById(String id) {
         return repertoireRepository.findById(id);
+    }
+
+    public List<Repertoire> getAllRepertoire() {
+        return repertoireRepository.findAll();
     }
 
     //think of a way to create the syncRepertoire here
