@@ -1,11 +1,14 @@
 package com.academico.webproject.controller;
 
+import com.academico.webproject.model.Band;
 import com.academico.webproject.model.Repertoire;
 import com.academico.webproject.service.RepertoireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/repertoire")
@@ -18,6 +21,12 @@ public class RepertoireController {
     public ResponseEntity<Repertoire> createRepertoire(@RequestBody Repertoire repertoire) {
         Repertoire createRepertoire = repertoireService.createRepertoire(repertoire);
         return ResponseEntity.ok(createRepertoire);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Repertoire>> getAllBands() {
+        List<Repertoire> repertoires = repertoireService.getAllRepertoire();
+        return ResponseEntity.ok(repertoires);
     }
 
     @GetMapping("/{id}")
