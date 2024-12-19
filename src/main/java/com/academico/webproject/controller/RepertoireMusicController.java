@@ -1,10 +1,13 @@
 package com.academico.webproject.controller;
 
+import com.academico.webproject.model.Band;
 import com.academico.webproject.model.RepertoireMusic;
 import com.academico.webproject.service.RepertoireMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/repertoire-music")
@@ -45,5 +48,11 @@ public class RepertoireMusicController {
             @PathVariable String musicId) {
         RepertoireMusic repertoireMusic = repertoireMusicService.findMusicInRepertoire(repertoireId, musicId);
         return ResponseEntity.ok(repertoireMusic);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RepertoireMusic>> getAllBands() {
+        List<RepertoireMusic> repertoireMusics = repertoireMusicService.getAllRepertoireMusic();
+        return ResponseEntity.ok(repertoireMusics);
     }
 }
