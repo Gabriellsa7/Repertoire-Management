@@ -1,5 +1,6 @@
 package com.academico.webproject.service;
 
+import com.academico.webproject.model.Band;
 import com.academico.webproject.model.Music;
 import com.academico.webproject.repository.MusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
