@@ -1,10 +1,12 @@
     package com.academico.webproject.service;
 
+    import com.academico.webproject.model.Band;
     import com.academico.webproject.model.User;
     import com.academico.webproject.repository.UserRepository;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
 
+    import java.util.List;
     import java.util.Optional;
 
     @Service
@@ -19,6 +21,10 @@
 
         public Optional<User> getUserById(String id) {
             return  userRepository.findById(id);
+        }
+
+        public List<User> getAllUsers() {
+            return userRepository.findAll();
         }
 
         public void deleteUser(String id) {
