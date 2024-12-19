@@ -1,5 +1,6 @@
 package com.academico.webproject.service;
 
+import com.academico.webproject.model.Band;
 import com.academico.webproject.model.Music;
 import com.academico.webproject.model.Repertoire;
 import com.academico.webproject.model.RepertoireMusic;
@@ -9,6 +10,8 @@ import com.academico.webproject.repository.RepertoireMusicRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RepertoireMusicService {
@@ -36,6 +39,10 @@ public class RepertoireMusicService {
         repertoireMusic.setMusic(music);
         repertoireMusic.setOrderInRepertoire(order);
         return repertoireMusicRepository.save(repertoireMusic);
+    }
+
+    public List<RepertoireMusic> getAllRepertoireMusic() {
+        return repertoireMusicRepository.findAll();
     }
 
     public void removeMusicFromRepertoire(String repertoireId, String musicId) {
