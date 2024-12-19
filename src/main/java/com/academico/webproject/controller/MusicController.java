@@ -1,11 +1,14 @@
 package com.academico.webproject.controller;
 
+import com.academico.webproject.model.Band;
 import com.academico.webproject.model.Music;
 import com.academico.webproject.service.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/music")
@@ -20,6 +23,12 @@ public class MusicController {
     public ResponseEntity<Music> createMusic(@RequestBody Music music) {
         Music createMusic = musicService.createMusic(music);
         return ResponseEntity.ok(createMusic);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Music>> getAllBands() {
+        List<Music> musics = musicService.getAllMusics();
+        return ResponseEntity.ok(musics);
     }
 
     @GetMapping("/{id}")
