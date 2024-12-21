@@ -1,6 +1,5 @@
 package com.academico.webproject.controller;
 
-import com.academico.webproject.model.Band;
 import com.academico.webproject.model.RepertoireMusic;
 import com.academico.webproject.service.RepertoireMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +53,20 @@ public class RepertoireMusicController {
     public ResponseEntity<List<RepertoireMusic>> getAllBands() {
         List<RepertoireMusic> repertoireMusics = repertoireMusicService.getAllRepertoireMusic();
         return ResponseEntity.ok(repertoireMusics);
+    }
+
+    @GetMapping("/{repertoireId}/active-music")
+    public ResponseEntity<List<RepertoireMusic>> getActiveMusicInRepertoire(@PathVariable String repertoireId) {
+        List<RepertoireMusic> activeMusic = repertoireMusicService.getActiveMusicInRepertoire(repertoireId);
+        return ResponseEntity.ok(activeMusic);
+    }
+
+    @PatchMapping("/{repertoireId}/{musicId}/status")//?isActive= false or true
+    public ResponseEntity<RepertoireMusic> toggleMusicStatus(
+            @PathVariable String repertoireId,
+            @PathVariable String musicId,
+            @RequestParam boolean isActive) {
+        RepertoireMusic updatedRepertoireMusic = repertoireMusicService.toggleMusicStatus(repertoireId, musicId, isActive);
+        return ResponseEntity.ok(updatedRepertoireMusic);
     }
 }

@@ -59,7 +59,7 @@ public class RepertoireMusicService {
         // Checks whether the association between repertoire and music exists
         RepertoireMusic repertoireMusic = repertoireMusicRepository
                 .findByRepertoireIdAndMusicId(repertoireId, musicId)
-                .orElseThrow(() -> new EntityNotFoundException("Música não encontrada no repertório!"));
+                .orElseThrow(() -> new EntityNotFoundException("Music not found in repertoire.!"));
 
         repertoireMusic.setOrderInRepertoire(newOrder);
         return repertoireMusicRepository.save(repertoireMusic);
@@ -68,5 +68,18 @@ public class RepertoireMusicService {
     public RepertoireMusic findMusicInRepertoire(String  repertoireId, String musicId) {
         return repertoireMusicRepository.findByRepertoireIdAndMusicId(repertoireId, musicId)
                 .orElseThrow(() -> new EntityNotFoundException("Music not found in the specified repertoire."));
+    }
+
+    public List<RepertoireMusic> getActiveMusicInRepertoire(String repertoireId) {
+        return repertoireMusicRepository.findByRepertoireIdAndIsActiveTrue(repertoireId);
+    }
+
+    public RepertoireMusic toggleMusicStatus(String repertoireId, String musicId, boolean isActive) {
+        RepertoireMusic repertoireMusic = repertoireMusicRepository
+                .findByRepertoireIdAndMusicId(repertoireId, musicId)
+                .orElseThrow(() -> new EntityNotFoundException("Music not found in the specified repertoire."));
+
+        repertoireMusic.setActive(isActive);
+        return repertoireMusicRepository.save(repertoireMusic);
     }
 }
