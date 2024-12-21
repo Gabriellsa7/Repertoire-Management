@@ -26,7 +26,7 @@ public class MusicController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Music>> getAllBands() {
+    public ResponseEntity<List<Music>> getAllMusics() {
         List<Music> musics = musicService.getAllMusics();
         return ResponseEntity.ok(musics);
     }
