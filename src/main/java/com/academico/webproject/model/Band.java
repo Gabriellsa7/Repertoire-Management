@@ -32,6 +32,8 @@ public class Band {
             joinColumns = @JoinColumn(name = "band_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    // The (Set) is often used in (@ManyToMany) relationships in JPA because it ensures there
+    // will be no duplicates in the collection of associated entities.
     private Set<User> members;
 
     @OneToMany(mappedBy = "band", cascade = CascadeType.ALL)

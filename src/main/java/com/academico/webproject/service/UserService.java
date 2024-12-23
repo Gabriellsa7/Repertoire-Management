@@ -46,8 +46,8 @@
             }).orElseThrow(() -> new RuntimeException("User not found"));
         }
 
-
         public boolean authenticateUser(String email, String password) {
+            //Optional is intended to handle values that may or may not be present, helping to avoid NullPointerException
             Optional<User> optionalUser = userRepository.findByEmail(email);
 
             if (optionalUser.isPresent()) {

@@ -23,7 +23,7 @@ public class RepertoireService {
 
     public Repertoire updateRepertoire(String id, Repertoire repertoireDetails) {
         return  repertoireRepository.findById(id).map(repertoire -> {
-            repertoire.setName(repertoireDetails.getName());
+            repertoire.setName(repertoire.getName());
             repertoire.setDescription(repertoire.getDescription());
             repertoire.setBand(repertoire.getBand());
             //think of a way to put the musicLinks here
@@ -43,5 +43,5 @@ public class RepertoireService {
         return repertoireRepository.findAll();
     }
 
-    //think of a way to create the syncRepertoire here
+    //think of a way to create the syncRepertoire
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//used to load only the information needed for the login operation
 public class UserLoginRequest {
     private String email;
     private String password;
