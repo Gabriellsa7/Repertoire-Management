@@ -61,7 +61,7 @@ The project follows a modular design for scalability and maintainability:
 ### Steps to Run
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/band-repertoire-management.git
+   git clone https://github.com/Gabriellsa7/band-repertoire-management.git
 ### 2. Set up the database
 
 To configure the MySQL database for the project:
@@ -78,4 +78,4 @@ For any questions or suggestions, feel free to reach out:
 
 Email: gabrielsantana123santos@gmail.com
 
-GitHub: GabriellSa7
+GitHub: Gabriellsa7
