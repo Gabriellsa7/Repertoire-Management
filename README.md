@@ -1,6 +1,6 @@
 # Band Repertoire Management System 🎵
 
-This project is a **Band Repertoire Management System** developed as part of the Web Development 1 course at [Your University Name]. The goal of the system is to streamline the management of band repertoires by synchronizing all band members with a designated "lead" user. This ensures that all members follow the same repertoire structure and commands in real-time.
+This project is a **Band Repertoire Management System** developed as part of the Web Development 1 course at Information Systems. The goal of the system is to streamline the management of band repertoires by synchronizing all band members with a designated "lead" user. This ensures that all members follow the same repertoire structure and commands in real-time.
 
 ---
 
