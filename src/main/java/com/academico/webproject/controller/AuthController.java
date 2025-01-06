@@ -10,21 +10,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
     private UserService userService;
-
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserLoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody UserLoginRequest loginRequest) {
         boolean isAuthenticated = userService.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful! Welcome to the system.");
+            String userId = userService.getUserIdByEmail(loginRequest.getEmail());
+
+            // Returns a JSON with the user ID and other relevant information
+            return ResponseEntity.ok(Map.of(
+                    "id", userId,
+                    "message", "Login successful!"
+            ));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password.");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of(
+                    "error", "Invalid email or password."
+            ));
         }
     }
 }
