@@ -27,6 +27,8 @@ public class MusicService {
     }
 
     public Music updateMusic(String id, Music updateMusic) {
+        //The repository's findById(id) method returns an Optional<Music>
+        //Present: If the song with the given ID is found. Empty: If no song with that ID exists.
         return musicRepository.findById(id).map(music -> {
             music.setTitle(updateMusic.getTitle());
             //Search about how to send PDF to site
