@@ -2,6 +2,7 @@
 
     import com.academico.webproject.model.Band;
     import com.academico.webproject.model.User;
+    import com.academico.webproject.repository.BandRepository;
     import com.academico.webproject.repository.UserRepository;
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@
 
         @Autowired
         private UserRepository userRepository;
+
+        @Autowired
+        private BandRepository bandRepository;
 
         public User createUser(User user) {
             return userRepository.save(user);
@@ -55,5 +59,20 @@
                 return user.getPassword().equals(password);
             }
             return false;
+        }
+
+        public boolean existsByEmail(String email) {
+            return userRepository.existsByEmail(email);
+        }
+
+        public String getUserIdByEmail(String email) {
+            User user = userRepository.findByEmail(email)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+            return user.getId(); // Ensures that the user ID is being returned
+        }
+
+        public List<Band> getBandsByUserId(User userId) {
+            // Retorna as bandas associadas ao usuário
+            return bandRepository.findByMembersContaining(userId);
         }
     }

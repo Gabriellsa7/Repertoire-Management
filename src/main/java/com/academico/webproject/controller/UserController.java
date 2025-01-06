@@ -20,6 +20,9 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
+        if (userService.existsByEmail(user.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
         User createUser = userService.createUser(user);
         return ResponseEntity.ok(createUser);
     }
@@ -51,6 +54,15 @@ public class UserController {
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+
+    @GetMapping("/{userId}/bands")
+    public ResponseEntity<List<Band>> getBandsByUserId(@PathVariable User userId) {
+        List<Band> bands = userService.getBandsByUserId(userId);
+        if (bands.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(bands);
     }
 
 }
