@@ -4,6 +4,7 @@ import com.academico.webproject.model.Band;
 import com.academico.webproject.model.User;
 import com.academico.webproject.service.BandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,5 +64,17 @@ public class BandController {
     public ResponseEntity<List<User>> getMembersByBandId(@PathVariable String bandId) {
         List<User> members = bandService.getMemberByBandId(bandId);
         return ResponseEntity.ok(members);
+    }
+
+    @GetMapping("/leader/{leaderId}")
+    public ResponseEntity<List<Band>> getBandsByLeader(@PathVariable String leaderId) {
+        List<Band> bands = bandService.getBandsByLeader(leaderId);
+        return ResponseEntity.ok(bands);
+    }
+
+    @GetMapping("/member/{userId}")
+    public ResponseEntity<List<Band>> getBandsByMember(@PathVariable String userId) {
+        List<Band> bands = bandService.getBandsByMember(userId);
+        return ResponseEntity.ok(bands);
     }
 }

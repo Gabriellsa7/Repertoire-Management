@@ -73,8 +73,20 @@ public class BandService {
         Band band = bandRepository.findById(bandId)
                 .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
 
-        // Convert Set<User> to List<User>
+        // Converts the member set (Set<User>) to a list (List<User>).
         return new ArrayList<>(band.getMembers());
+    }
+
+    public List<Band> getBandsByLeader(String leaderId) {
+        return bandRepository.findByLeaderId(leaderId)
+                .map(List::of)
+                .orElse(List.of());
+    }
+
+    public List<Band> getBandsByMember(String userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+        return bandRepository.findByMembersContaining(user);
     }
 }
 
