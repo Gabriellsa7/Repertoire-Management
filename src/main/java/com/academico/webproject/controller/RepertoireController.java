@@ -51,4 +51,14 @@ public class RepertoireController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping("/band/{bandId}")
+    public ResponseEntity<List<Repertoire>> getRepertoireByBandId(@PathVariable String bandId) {
+        try {
+            List<Repertoire> repertoires = repertoireService.getRepertoireByBandId(bandId);
+            return ResponseEntity.ok(repertoires);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
