@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RepertoireMusicService {
@@ -40,6 +41,15 @@ public class RepertoireMusicService {
         repertoireMusic.setOrderInRepertoire(order);
         return repertoireMusicRepository.save(repertoireMusic);
     }
+
+    public List<Music> findAllMusicsByRepertoire(String repertoireId) {
+        // Aqui, você chama o repositório para buscar as músicas relacionadas ao repertório
+        return repertoireMusicRepository.findAllByRepertoireId(repertoireId)
+                .stream()
+                .map(RepertoireMusic::getMusic) // Extrair a entidade Music
+                .collect(Collectors.toList());
+    }
+
 
     public List<RepertoireMusic> getAllRepertoireMusic() {
         return repertoireMusicRepository.findAll();

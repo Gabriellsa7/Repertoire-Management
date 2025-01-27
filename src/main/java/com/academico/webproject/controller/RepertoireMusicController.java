@@ -1,5 +1,6 @@
 package com.academico.webproject.controller;
 
+import com.academico.webproject.model.Music;
 import com.academico.webproject.model.RepertoireMusic;
 import com.academico.webproject.service.RepertoireMusicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,13 @@ public class RepertoireMusicController {
         return ResponseEntity.ok(updatedRepertoireMusic);
     }
 
+    @GetMapping("/{repertoireId}/musics")
+    public ResponseEntity<List<Music>> getAllMusicsInRepertoire(
+            @PathVariable String repertoireId) {
+        List<Music> musics = repertoireMusicService.findAllMusicsByRepertoire(repertoireId);
+        return ResponseEntity.ok(musics);
+    }
+
     @GetMapping("/{repertoireId}/find-music/{musicId}")
     public ResponseEntity<RepertoireMusic> findMusicInRepertoire(
             @PathVariable String repertoireId,
@@ -50,7 +58,7 @@ public class RepertoireMusicController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RepertoireMusic>> getAllBands() {
+    public ResponseEntity<List<RepertoireMusic>> getAllRepertoireMusics() {
         List<RepertoireMusic> repertoireMusics = repertoireMusicService.getAllRepertoireMusic();
         return ResponseEntity.ok(repertoireMusics);
     }
