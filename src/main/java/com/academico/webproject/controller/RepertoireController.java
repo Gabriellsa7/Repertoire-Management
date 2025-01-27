@@ -24,7 +24,7 @@ public class RepertoireController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Repertoire>> getAllMusics() {
+    public ResponseEntity<List<Repertoire>> getAllRepertoires() {
         List<Repertoire> repertoires = repertoireService.getAllRepertoire();
         return ResponseEntity.ok(repertoires);
     }
