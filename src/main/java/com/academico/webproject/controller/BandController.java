@@ -29,6 +29,7 @@ public class BandController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Band newBand = new Band();
         newBand.setName(bandRequest.getName());
+        newBand.setImageUrl(bandRequest.getImageUrl());
         newBand.setLeader(leader);
 
         Band createdBand = bandService.createBand(newBand);

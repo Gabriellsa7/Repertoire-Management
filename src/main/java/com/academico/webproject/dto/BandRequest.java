@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BandRequest {
     private String name;
+    private String imageUrl;
     private String leaderId;
 }

@@ -22,6 +22,9 @@ public class Band {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "leader_id")
     private User leader;
