@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface BandRepository extends JpaRepository<Band, String> {
     List<Band> findByMembersContaining( @Param("userId") User userId);
-    Optional<Band> findByLeaderId(String leaderId);
+    List<Band> findByLeaderId(String leaderId);
 }

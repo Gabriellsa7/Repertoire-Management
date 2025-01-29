@@ -78,9 +78,7 @@ public class BandService {
     }
 
     public List<Band> getBandsByLeader(String leaderId) {
-        return bandRepository.findByLeaderId(leaderId)
-                .map(List::of)
-                .orElse(List.of());
+        return bandRepository.findByLeaderId(leaderId);
     }
 
     public List<Band> getBandsByMember(String userId) {

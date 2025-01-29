@@ -1,7 +1,9 @@
 package com.academico.webproject.controller;
 
+import com.academico.webproject.dto.BandRequest;
 import com.academico.webproject.model.Band;
 import com.academico.webproject.model.User;
+import com.academico.webproject.repository.UserRepository;
 import com.academico.webproject.service.BandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/bands")
@@ -17,11 +20,22 @@ public class BandController {
     @Autowired
     private BandService bandService;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @PostMapping
-    public ResponseEntity<Band> createBand(@RequestBody Band band) {
-        Band createdBand = bandService.createBand(band);
+    public ResponseEntity<Band> createBand(@RequestBody BandRequest bandRequest) {
+        User leader = userRepository.findById(bandRequest.getLeaderId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Band newBand = new Band();
+        newBand.setName(bandRequest.getName());
+        newBand.setLeader(leader);
+
+        Band createdBand = bandService.createBand(newBand);
         return ResponseEntity.ok(createdBand);
     }
+
+
 
     @GetMapping
     public ResponseEntity<List<Band>> getAllBands() {
