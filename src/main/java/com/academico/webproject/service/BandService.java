@@ -2,8 +2,10 @@ package com.academico.webproject.service;
 
 
 import com.academico.webproject.model.Band;
+import com.academico.webproject.model.Repertoire;
 import com.academico.webproject.model.User;
 import com.academico.webproject.repository.BandRepository;
+import com.academico.webproject.repository.RepertoireRepository;
 import com.academico.webproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class BandService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RepertoireRepository repertoireRepository;
 
     public Band createBand(Band band) {
         return bandRepository.save(band);
@@ -47,6 +52,13 @@ public class BandService {
         } else {
             throw new RuntimeException("Band not found with ID: " + id);
         }
+    }
+
+    public Band addRepertoireToBand(String bandId, String repertoireId) {
+        Band band = bandRepository.findById(bandId).orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
+        Repertoire repertoire = repertoireRepository.findById(repertoireId).orElseThrow(() -> new RuntimeException("Repertoire not found with ID: " + repertoireId));
+        band.getRepertoires().add(repertoire);
+        return bandRepository.save(band);
     }
 
     public Band addMemberToBand(String bandId, String userId) {
