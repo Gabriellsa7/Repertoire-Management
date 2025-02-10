@@ -30,6 +30,7 @@ public class RepertoireService {
             repertoire.setName(repertoire.getName());
             repertoire.setDescription(repertoire.getDescription());
             repertoire.setBand(repertoire.getBand());
+            repertoire.setImageUrl(repertoire.getImageUrl());
             //think of a way to put the musicLinks here
             return repertoireRepository.save(repertoire);
         }).orElseThrow(() -> new RuntimeException("Repertoire not found"));

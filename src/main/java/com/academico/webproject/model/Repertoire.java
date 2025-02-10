@@ -23,6 +23,9 @@ public class Repertoire {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "band_id")
     private Band band;
