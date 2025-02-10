@@ -3,6 +3,7 @@ package com.academico.webproject.controller;
 import com.academico.webproject.dto.BandRequest;
 import com.academico.webproject.model.Band;
 import com.academico.webproject.model.User;
+import com.academico.webproject.repository.RepertoireRepository;
 import com.academico.webproject.repository.UserRepository;
 import com.academico.webproject.service.BandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class BandController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RepertoireRepository repertoireRepository;
+
     @PostMapping
     public ResponseEntity<Band> createBand(@RequestBody BandRequest bandRequest) {
         User leader = userRepository.findById(bandRequest.getLeaderId())
@@ -35,8 +39,6 @@ public class BandController {
         Band createdBand = bandService.createBand(newBand);
         return ResponseEntity.ok(createdBand);
     }
-
-
 
     @GetMapping
     public ResponseEntity<List<Band>> getAllBands() {
@@ -61,6 +63,12 @@ public class BandController {
     public ResponseEntity<Void> deleteBand(@PathVariable String id) {
         bandService.deleteBand(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{bandId}/add-repertoire/{repertoireId}")
+    public ResponseEntity<Band> addRepertoireToBand(@PathVariable String bandId, @PathVariable String repertoireId) {
+        Band updateBand = bandService.addRepertoireToBand(bandId, repertoireId);
+        return ResponseEntity.ok(updateBand);
     }
 
     @PostMapping("/{bandId}/add-member/{userId}")
