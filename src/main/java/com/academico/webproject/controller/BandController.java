@@ -65,11 +65,11 @@ public class BandController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{bandId}/add-repertoire/{repertoireId}")
-    public ResponseEntity<Band> addRepertoireToBand(@PathVariable String bandId, @PathVariable String repertoireId) {
-        Band updateBand = bandService.addRepertoireToBand(bandId, repertoireId);
-        return ResponseEntity.ok(updateBand);
-    }
+//    @PostMapping("/{bandId}/add-repertoire/{repertoireId}")
+//    public ResponseEntity<Band> addRepertoireToBand(@PathVariable String bandId, @PathVariable String repertoireId) {
+//        Band updateBand = bandService.addRepertoireToBand(bandId, repertoireId);
+//        return ResponseEntity.ok(updateBand);
+//    }
 
     @PostMapping("/{bandId}/add-member/{userId}")
     public ResponseEntity<Band> addMemberToBand(@PathVariable String bandId, @PathVariable String userId) {

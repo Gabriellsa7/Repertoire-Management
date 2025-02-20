@@ -42,6 +42,7 @@ public class BandService {
         return bandRepository.findById(id).map(band -> {
             band.setName(updatedBand.getName());
             band.setLeader(updatedBand.getLeader());
+            band.setRepertoires(updatedBand.getRepertoires());
             return bandRepository.save(band);
         }).orElseThrow(() -> new RuntimeException("Band not found"));
     }
@@ -54,12 +55,16 @@ public class BandService {
         }
     }
 
-    public Band addRepertoireToBand(String bandId, String repertoireId) {
-        Band band = bandRepository.findById(bandId).orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
-        Repertoire repertoire = repertoireRepository.findById(repertoireId).orElseThrow(() -> new RuntimeException("Repertoire not found with ID: " + repertoireId));
-        band.getRepertoires().add(repertoire);
-        return bandRepository.save(band);
-    }
+//    public Band addRepertoireToBand(String bandId, String repertoireId) {
+//        Band band = bandRepository.findById(bandId)
+//                .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
+//        Repertoire repertoire = repertoireRepository.findById(repertoireId)
+//                .orElseThrow(() -> new RuntimeException("Repertoire not found with ID: " + repertoireId));
+//        repertoire.setBand(band);
+//        band.getRepertoires().add(repertoire);
+//        repertoireRepository.save(repertoire);
+//        return bandRepository.save(band);
+//    }
 
     public Band addMemberToBand(String bandId, String userId) {
         Band band = bandRepository.findById(bandId)
