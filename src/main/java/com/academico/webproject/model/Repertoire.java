@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -33,4 +35,7 @@ public class Repertoire {
     @OneToMany(mappedBy = "repertoire", cascade = CascadeType.ALL)
     private Set<RepertoireMusic> musicLinks;
 
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
