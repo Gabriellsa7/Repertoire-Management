@@ -4,10 +4,14 @@ import com.academico.webproject.model.Band;
 import com.academico.webproject.model.Music;
 import com.academico.webproject.service.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -51,6 +55,29 @@ public class MusicController {
             return ResponseEntity.ok(updateMusic);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PostMapping("/{id}/upload-pdf")
+    public ResponseEntity<String> uploadPdf(@PathVariable String id, @RequestParam("file") MultipartFile file) {
+        try {
+            musicService.uploadPdf(id, file);
+            return ResponseEntity.ok("PDF sent successfully!");
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending file");
+        }
+    }
+
+    @GetMapping("/{id}/download-pdf")
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable String id) {
+        try {
+            byte[] pdfData = musicService.getPdf(id);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=letter.pdf")
+                    .body(pdfData);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }

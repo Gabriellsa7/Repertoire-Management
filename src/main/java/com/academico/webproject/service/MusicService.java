@@ -5,7 +5,9 @@ import com.academico.webproject.model.Music;
 import com.academico.webproject.repository.MusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +45,23 @@ public class MusicService {
         } else {
             throw new RuntimeException("Music not found with ID: " + id);
         }
+    }
+
+    public Music uploadPdf(String musicId, MultipartFile file) throws IOException {
+        return musicRepository.findById(musicId).map(music -> {
+            try {
+                music.setPdfFile(file.getBytes());
+                return musicRepository.save(music);
+            } catch (IOException e) {
+                throw new RuntimeException("Error Save PDF", e);
+            }
+        }).orElseThrow(() -> new RuntimeException("Music not found"));
+    }
+
+    public byte[] getPdf(String musicId) {
+        return musicRepository.findById(musicId)
+                .map(Music::getPdfFile)
+                .orElseThrow(() -> new RuntimeException("PDF not found"));
     }
 }
 
