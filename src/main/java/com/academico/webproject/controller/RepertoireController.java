@@ -52,6 +52,20 @@ public class RepertoireController {
         }
     }
 
+    @GetMapping("/latest")
+    public ResponseEntity<Repertoire> getLatestRepertoire() {
+        return repertoireService.getLatestRepertoire()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @PostMapping("/{repertoireId}/assign-band/{bandId}")
+    public ResponseEntity<Repertoire> assignBandToRepertoire(
+            @PathVariable String repertoireId, @PathVariable String bandId) {
+        Repertoire updatedRepertoire = repertoireService.assignBandToRepertoire(repertoireId, bandId);
+        return ResponseEntity.ok(updatedRepertoire);
+    }
+
     @GetMapping("/band/{bandId}")
     public ResponseEntity<List<Repertoire>> getRepertoireByBandId(@PathVariable String bandId) {
         try {

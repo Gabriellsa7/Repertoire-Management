@@ -36,6 +36,17 @@ public class RepertoireService {
         }).orElseThrow(() -> new RuntimeException("Repertoire not found"));
     }
 
+    public Repertoire assignBandToRepertoire(String repertoireId, String bandId) {
+        Band band = bandRepository.findById(bandId)
+                .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
+
+        Repertoire repertoire = repertoireRepository.findById(repertoireId)
+                .orElseThrow(() -> new RuntimeException("Repertoire not found with ID: " + repertoireId));
+
+        repertoire.setBand(band);
+        return repertoireRepository.save(repertoire);
+    }
+
     public void deleteRepertoire(String id) {
         repertoireRepository.deleteById(id);
     }
@@ -55,6 +66,10 @@ public class RepertoireService {
         } else {
             throw new RuntimeException("Band not found");
         }
+    }
+
+    public Optional<Repertoire> getLatestRepertoire() {
+        return repertoireRepository.findLatestRepertoire();
     }
 
     //think of a way to create the syncRepertoire
