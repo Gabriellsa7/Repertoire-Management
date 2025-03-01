@@ -72,8 +72,8 @@ public class BandController {
 //    }
 
     @PostMapping("/{bandId}/add-member/{userId}")
-    public ResponseEntity<Band> addMemberToBand(@PathVariable String bandId, @PathVariable String userId) {
-        Band updatedBand = bandService.addMemberToBand(bandId, userId);
+    public ResponseEntity<Band> addMemberToBand(@PathVariable String bandId, @PathVariable String userId, @RequestHeader("Requester-Id") String requesterId) {
+        Band updatedBand = bandService.addMemberToBand(bandId, userId, requesterId);
         return ResponseEntity.ok(updatedBand);
     }
 

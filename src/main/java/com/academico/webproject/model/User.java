@@ -1,12 +1,15 @@
 package com.academico.webproject.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.Data;
 
 import java.util.Set;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Table(name = "user")
 @Data
@@ -17,6 +20,9 @@ public class User {
     @Id
     @GeneratedValue(strategy =GenerationType.UUID)
     private String id;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @Column(name = "name", nullable = false)
     private String name;

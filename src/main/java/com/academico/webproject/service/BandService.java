@@ -66,11 +66,15 @@ public class BandService {
 //        return bandRepository.save(band);
 //    }
 
-    public Band addMemberToBand(String bandId, String userId) {
+    public Band addMemberToBand(String bandId, String userId, String requesterId) {
         Band band = bandRepository.findById(bandId)
                 .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+
+        if(!band.getLeader().getId().equals(requesterId)) {
+            throw new RuntimeException("Only the leader can add members to the band.");
+        }
 
         band.getMembers().add(user);
         return bandRepository.save(band);
