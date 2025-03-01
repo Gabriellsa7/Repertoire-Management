@@ -87,11 +87,16 @@ public class BandService {
     }
 
     public List<User> getMemberByBandId(String bandId) {
-        Band band = bandRepository.findById(bandId)
-                .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
+        Optional<Band> optionalBand = bandRepository.findByIdWithMembers(bandId);
 
-        // Converts the member set (Set<User>) to a list (List<User>).
-        return new ArrayList<>(band.getMembers());
+        if (optionalBand.isPresent()) {
+            Band band = optionalBand.get();
+            System.out.println("Band found: " + band.getName());
+            System.out.println("Members count: " + band.getMembers().size());
+            return new ArrayList<>(band.getMembers());
+        } else {
+            throw new RuntimeException("Band not found with ID: " + bandId);
+        }
     }
 
     public List<Band> getBandsByLeader(String leaderId) {

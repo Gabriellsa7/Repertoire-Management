@@ -100,4 +100,11 @@ public class BandController {
         List<Band> bands = bandService.getBandsByMember(userId);
         return ResponseEntity.ok(bands);
     }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return ResponseEntity.ok(users);
+    }
+
 }
