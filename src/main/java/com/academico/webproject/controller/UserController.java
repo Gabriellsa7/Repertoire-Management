@@ -65,4 +65,10 @@ public class UserController {
         return ResponseEntity.ok(bands);
     }
 
+    @GetMapping("/{bandId}/members")
+    public ResponseEntity<List<User>> getMembersByBand(@PathVariable String bandId) {
+        List<User> members = userService.getMembersByBandId(bandId);
+        return ResponseEntity.ok(members);
+    }
+
 }
