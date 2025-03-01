@@ -62,5 +62,9 @@ public class MusicService {
                 .map(Music::getPdfFile)
                 .orElseThrow(() -> new RuntimeException("PDF not found"));
     }
+
+    public List<Music> getUnassignedMusics() {
+        return musicRepository.findAllUnassignedMusics();
+    }
 }
 

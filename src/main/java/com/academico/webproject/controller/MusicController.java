@@ -80,4 +80,10 @@ public class MusicController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+
+    @GetMapping("/unassigned")
+    public ResponseEntity<List<Music>> getUnassignedMusics() {
+        List<Music> unassignedMusics = musicService.getUnassignedMusics();
+        return ResponseEntity.ok(unassignedMusics);
+    }
 }
