@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class BandService {
@@ -27,7 +28,14 @@ public class BandService {
     private RepertoireRepository repertoireRepository;
 
     public Band createBand(Band band) {
+        User leader = userRepository.findById(band.getLeader().getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        band.setLeader(leader);
+        band.getMembers().add(leader);
+
         return bandRepository.save(band);
+
     }
 
     public Optional<Band> getBandById(String bandId) {
