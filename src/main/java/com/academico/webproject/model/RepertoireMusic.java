@@ -22,11 +22,11 @@ public class RepertoireMusic {
     @Column(name = "is_active")
     private boolean isActive = true;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "repertoire_id")
     private Repertoire repertoire;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "music_id")
     private Music music;
 }

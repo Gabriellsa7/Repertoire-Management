@@ -32,7 +32,7 @@ public class Repertoire {
     @JoinColumn(name = "band_id")
     private Band band;
 
-    @OneToMany(mappedBy = "repertoire", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "repertoire", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RepertoireMusic> musicLinks;
 
     @CreationTimestamp
