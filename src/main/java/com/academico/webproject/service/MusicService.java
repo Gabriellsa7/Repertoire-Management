@@ -2,6 +2,7 @@ package com.academico.webproject.service;
 
 import com.academico.webproject.model.Music;
 import com.academico.webproject.repository.MusicRepository;
+import com.academico.webproject.repository.RepertoireMusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +15,9 @@ import java.util.Optional;
 public class MusicService {
     @Autowired
     private MusicRepository musicRepository;
+
+    @Autowired
+    private RepertoireMusicRepository repertoireMusicRepository;
 
     public Music createMusic(Music music) {
         return  musicRepository.save(music);
@@ -40,6 +44,7 @@ public class MusicService {
 
     public void deleteMusic(String id) {
         if (musicRepository.existsById(id)) {
+            repertoireMusicRepository.deleteByMusicId(id);
             musicRepository.deleteById(id);
         } else {
             throw new RuntimeException("Music not found with ID: " + id);

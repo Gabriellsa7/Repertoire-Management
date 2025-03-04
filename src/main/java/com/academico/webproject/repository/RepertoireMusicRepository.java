@@ -20,5 +20,10 @@ public interface RepertoireMusicRepository extends JpaRepository<RepertoireMusic
     @Query("DELETE FROM RepertoireMusic rm WHERE rm.repertoire.id = :repertoireId")
     void deleteByRepertoireId(@Param("repertoireId") String repertoireId);
 
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM RepertoireMusic rm WHERE rm.music.id = :musicId")
+    void deleteByMusicId(@Param("musicId") String musicId);
+
     Optional<RepertoireMusic> findByRepertoireIdAndMusicId(String repertoireId, String musicId);
 }

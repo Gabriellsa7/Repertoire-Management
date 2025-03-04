@@ -20,10 +20,13 @@ public class Music {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Lob
     @Column(name = "pdf_file", columnDefinition = "LONGBLOB")
     private byte[] pdfFile;
 
-    @OneToMany(mappedBy = "music", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "music", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RepertoireMusic> repertoireLinks;
 }
