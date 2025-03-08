@@ -20,10 +20,13 @@ public class RepertoireMusicController {
     public ResponseEntity<RepertoireMusic> addMusicToRepertoire(
             @PathVariable String repertoireId,
             @PathVariable String musicId,
-            @RequestParam Integer order) {
-        RepertoireMusic repertoireMusic = repertoireMusicService.addMusicToRepertoire(musicId, repertoireId, order);
-        return ResponseEntity.ok(repertoireMusic);
+            @RequestParam Integer order,
+            @RequestHeader("Requester-Id") String requesterId) {
+
+        RepertoireMusic newRepertoireMusic = repertoireMusicService.addMusicToRepertoire(musicId, repertoireId, order, requesterId);
+        return ResponseEntity.ok(newRepertoireMusic);
     }
+
 
     @DeleteMapping("/{repertoireId}/remove-music/{musicId}")
     public ResponseEntity<Void> removeMusicFromRepertoire(

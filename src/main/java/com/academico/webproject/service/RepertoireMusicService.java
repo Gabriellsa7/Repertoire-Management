@@ -27,20 +27,30 @@ public class RepertoireMusicService {
     @Autowired
     private RepertoireMusicRepository repertoireMusicRepository;
 
-    public RepertoireMusic addMusicToRepertoire(String musicId, String repertoireId, Integer order) {
+    public RepertoireMusic addMusicToRepertoire(String musicId, String repertoireId, Integer order, String requesterId) {
         Repertoire repertoire = repertoireRepository.findById(repertoireId)
                 .orElseThrow(() -> new EntityNotFoundException("Repertoire not found!"));
+
+        Band band = repertoire.getBand();
+        if (band == null) {
+            throw new RuntimeException("This repertoire is not assigned to any band.");
+        }
+
+        if (!band.getLeader().getId().equals(requesterId)) {
+            throw new RuntimeException("Only the leader can add music to the repertoire.");
+        }
 
         Music music = musicRepository.findById(musicId)
                 .orElseThrow(() -> new EntityNotFoundException("Music not found!"));
 
-        // Creates a new association between repertoire and music
         RepertoireMusic repertoireMusic = new RepertoireMusic();
         repertoireMusic.setRepertoire(repertoire);
         repertoireMusic.setMusic(music);
         repertoireMusic.setOrderInRepertoire(order);
+
         return repertoireMusicRepository.save(repertoireMusic);
     }
+
 
     public List<Music> findAllMusicsByRepertoire(String repertoireId) {
         // Aqui, você chama o repositório para buscar as músicas relacionadas ao repertório

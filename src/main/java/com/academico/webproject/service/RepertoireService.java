@@ -40,9 +40,13 @@ public class RepertoireService {
         }).orElseThrow(() -> new RuntimeException("Repertoire not found"));
     }
 
-    public Repertoire assignBandToRepertoire(String repertoireId, String bandId) {
+    public Repertoire assignBandToRepertoire(String repertoireId, String bandId, String requesterId) {
         Band band = bandRepository.findById(bandId)
                 .orElseThrow(() -> new RuntimeException("Band not found with ID: " + bandId));
+
+        if (!band.getLeader().getId().equals(requesterId)) {
+            throw new RuntimeException("Only the leader can assign a repertoire to the band.");
+        }
 
         Repertoire repertoire = repertoireRepository.findById(repertoireId)
                 .orElseThrow(() -> new RuntimeException("Repertoire not found with ID: " + repertoireId));
@@ -50,6 +54,7 @@ public class RepertoireService {
         repertoire.setBand(band);
         return repertoireRepository.save(repertoire);
     }
+
 
     public void deleteRepertoire(String id) {
         repertoireMusicRepository.deleteByRepertoireId(id);

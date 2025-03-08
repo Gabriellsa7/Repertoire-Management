@@ -72,12 +72,10 @@
         }
 
         public List<Band> getBandsByUserId(User userId) {
-            // Retorna as bandas associadas ao usuário
             return bandRepository.findByMembersContaining(userId);
         }
 
         public List<User> getMembersByBandId(String bandId) {
-            // Chama o repositório para buscar os membros da banda
             return userRepository.findMembersByBandId(bandId);
         }
     }

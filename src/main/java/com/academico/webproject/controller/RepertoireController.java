@@ -61,8 +61,11 @@ public class RepertoireController {
 
     @PostMapping("/{repertoireId}/assign-band/{bandId}")
     public ResponseEntity<Repertoire> assignBandToRepertoire(
-            @PathVariable String repertoireId, @PathVariable String bandId) {
-        Repertoire updatedRepertoire = repertoireService.assignBandToRepertoire(repertoireId, bandId);
+            @PathVariable String repertoireId,
+            @PathVariable String bandId,
+            @RequestHeader("Requester-Id") String requesterId) {
+
+        Repertoire updatedRepertoire = repertoireService.assignBandToRepertoire(repertoireId, bandId, requesterId);
         return ResponseEntity.ok(updatedRepertoire);
     }
 
