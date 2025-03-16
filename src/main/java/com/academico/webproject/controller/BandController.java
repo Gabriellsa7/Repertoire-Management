@@ -31,6 +31,7 @@ public class BandController {
     public ResponseEntity<Band> createBand(@RequestBody BandRequest bandRequest) {
         User leader = userRepository.findById(bandRequest.getLeaderId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
         Band newBand = new Band();
         newBand.setName(bandRequest.getName());
         newBand.setImageUrl(bandRequest.getImageUrl());
@@ -39,6 +40,7 @@ public class BandController {
         Band createdBand = bandService.createBand(newBand);
         return ResponseEntity.ok(createdBand);
     }
+
 
     @GetMapping
     public ResponseEntity<List<Band>> getAllBands() {

@@ -10,10 +10,7 @@ import com.academico.webproject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class BandService {
@@ -32,11 +29,16 @@ public class BandService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         band.setLeader(leader);
+
+        if (band.getMembers() == null) {
+            band.setMembers(new HashSet<>());
+        }
+
         band.getMembers().add(leader);
 
         return bandRepository.save(band);
-
     }
+
 
     public Optional<Band> getBandById(String bandId) {
         return bandRepository.findById(bandId);
